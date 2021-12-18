@@ -1,79 +1,159 @@
 <html>
-  NFT Benefit Calculator
-  <input />
+  <h1>NFT Benefit Calculator</h1>
+  <h4>Template</h4>
+  <button onclick="onClickTemplateCCAR()">CCAR</button>
+  <button onclick="onClickTemplateCPAN()">CPAN</button>
+  <button onclick="onClickTemplateCGAR()">CGAR</button>
+  <br />
+  <br />
 
-  <table id="myTable" />
+  <table>
+    <tr>
+      <td>Token Start</td>
+      <td><input id="elTokenStart" type="number" value="0" /></td>
+    </tr>
+    <tr>
+      <td>NFT Count</td>
+      <td><input id="elNftCount" type="number" value="1" /></td>
+    </tr>
+    <tr>
+      <td>NFT Earn Per Day</td>
+      <td><input id="elNftEarnPerDay" type="number" value="0" /></td>
+    </tr>
+    <tr>
+      <td>NFT Buy Price</td>
+      <td><input id="elNFTBuyPrice" type="number" value="0" /></td>
+    </tr>
+    <tr>
+      <td>NFT Oil Price</td>
+      <td><input id="elNFTOilPrice" type="number" value="0" /></td>
+    </tr>
+    <tr>
+      <td>Day View</td>
+      <td><input id="elDayView" type="number" value="90" /></td>
+    </tr>
+  </table>
+  <br />
+  <button onclick="calculator()">Calculator</button>
+  <br />
+  <br />
+
+  <div id="divTable" />
 </html>
 
 <script>
-  var table = document.getElementById("myTable");
+  var divTable = document.getElementById("divTable");
 
   // Car
   // let tokenStart = 0;
   // let nftCount = 8;
   // let nftEarnPerDay = 15;
-  // let nftCreatePrice = 620;
-  // let nftOil = 2;
+  // let nftBuyPrice = 620;
+  // let nftOilPrice = 2;
   // let dayCount = 90;
 
   // Pan
   // let tokenStart = 0;
   // let nftCount = 2;
   // let nftEarnPerDay = 20;
-  // let nftCreatePrice = 500;
-  // let nftOil = 1;
+  // let nftBuyPrice = 500;
+  // let nftOilPrice = 1;
   // let dayCount = 90;
-  //
-  let tokenStart = 0;
-  let nftCount = 10;
-  let nftEarnPerDay = 10;
-  let nftCreatePrice = 250;
-  let nftOil = 1;
-  let dayCount = 90;
 
-  const rowHead = table.insertRow(0);
-  rowHead.insertCell(0).innerHTML = "Day";
-  rowHead.insertCell(1).innerHTML = "ALL Earn";
-  rowHead.insertCell(2).innerHTML = "Day Earn";
-  rowHead.insertCell(3).innerHTML = "Oil";
+  // Gar
+  // let tokenStart = 0;
+  // let nftCount = 10;
+  // let nftEarnPerDay = 10;
+  // let nftBuyPrice = 250;
+  // let nftOilPrice = 1;
+  // let dayCount = 90;
 
-  for (let nft = 0; nft < nftCount; nft++) {
-    rowHead.insertCell(4 + nft).innerHTML = "NFT #" + (nft + 1);
+  const elTokenStart = document.getElementById("elTokenStart");
+  const elNftCount = document.getElementById("elNftCount");
+  const elNftEarnPerDay = document.getElementById("elNftEarnPerDay");
+  const elNFTBuyPrice = document.getElementById("elNFTBuyPrice");
+  const elNFTOilPrice = document.getElementById("elNFTOilPrice");
+
+  function onClickTemplateCCAR() {
+    elNftEarnPerDay.value = 15;
+    elNFTBuyPrice.value = 620;
+    elNFTOilPrice.value = 2;
   }
 
-  let allEarn = tokenStart;
-  let rowCount = 1;
-  for (let day = 0; day < dayCount; day++) {
-    const row = table.insertRow(rowCount);
-    row.insertCell(0).innerHTML = day + 1;
+  function onClickTemplateCPAN() {
+    elNftEarnPerDay.value = 20;
+    elNFTBuyPrice.value = 500;
+    elNFTOilPrice.value = 1;
+  }
 
-    const ceilAllEarn = row.insertCell(1);
-    const ceilDayEarn = row.insertCell(2);
-    const ceilOil = row.insertCell(3);
+  function onClickTemplateCGAR() {
+    elNftEarnPerDay.value = 10;
+    elNFTBuyPrice.value = 250;
+    elNFTOilPrice.value = 1;
+  }
 
-    const oil = -1 * nftCount * nftOil;
-    ceilOil.innerHTML = oil;
-    let dayEarn = 0;
+  onClickTemplateCCAR();
+
+  let elTable = null;
+
+  function calculator() {
+    const tokenStart = Math.floor(elTokenStart.value);
+    let nftCount = Math.floor(elNftCount.value);
+    const nftEarnPerDay = Math.floor(elNftEarnPerDay.value);
+    const nftBuyPrice = Math.floor(elNFTBuyPrice.value);
+    const nftOilPrice = Math.floor(elNFTOilPrice.value);
+    const dayCount = Math.floor(document.getElementById("elDayView").value);
+
+    if (elTable) {
+      divTable.removeChild(elTable);
+    }
+    elTable = divTable.appendChild(document.createElement("table"));
+    const rowHead = elTable.insertRow(0);
+    rowHead.insertCell(0).innerHTML = "Day";
+    rowHead.insertCell(1).innerHTML = "ALL Earn";
+    rowHead.insertCell(2).innerHTML = "Day Earn";
+    rowHead.insertCell(3).innerHTML = "Oil";
+
     for (let nft = 0; nft < nftCount; nft++) {
-      row.insertCell(4 + nft).innerHTML = nftEarnPerDay;
-      dayEarn += nftEarnPerDay;
+      rowHead.insertCell(4 + nft).innerHTML = "NFT #" + (nft + 1);
     }
-    dayEarn += oil;
-    ceilDayEarn.innerHTML = dayEarn;
-    allEarn += dayEarn;
-    ceilAllEarn.innerHTML = allEarn;
 
-    const nftNewCount = Math.floor(allEarn / nftCreatePrice);
-    if (nftNewCount > 0) {
-      allEarn -= nftNewCount * nftCreatePrice;
-      for (let nftNew = 0; nftNew < nftNewCount; nftNew++) {
-        const nftIndex = nftCount + nftNew;
-        rowHead.insertCell(4 + nftIndex).innerHTML = "NFT #" + nftIndex;
+    let allEarn = tokenStart;
+    let rowCount = 1;
+    for (let day = 0; day < dayCount; day++) {
+      const row = elTable.insertRow(rowCount);
+      row.insertCell(0).innerHTML = day + 1;
+
+      const ceilAllEarn = row.insertCell(1);
+      const ceilDayEarn = row.insertCell(2);
+      const ceilOil = row.insertCell(3);
+
+      const oil = -1 * nftCount * nftOilPrice;
+      ceilOil.innerHTML = oil;
+      let dayEarn = 0;
+      for (let nft = 0; nft < nftCount; nft++) {
+        row.insertCell(4 + nft).innerHTML = nftEarnPerDay;
+        dayEarn += nftEarnPerDay;
       }
-      nftCount += nftNewCount;
-    }
+      dayEarn += oil;
+      ceilDayEarn.innerHTML = dayEarn;
+      allEarn += dayEarn;
+      ceilAllEarn.innerHTML = allEarn;
 
-    rowCount++;
+      if (nftBuyPrice) {
+        const nftNewCount = Math.floor(allEarn / nftBuyPrice);
+        if (nftNewCount > 0) {
+          allEarn -= nftNewCount * nftBuyPrice;
+          for (let nftNew = 0; nftNew < nftNewCount; nftNew++) {
+            const nftIndex = nftCount + nftNew;
+            rowHead.insertCell(4 + nftIndex).innerHTML = "NFT #" + nftIndex;
+          }
+          nftCount += nftNewCount;
+        }
+      }
+
+      rowCount++;
+    }
   }
 </script>
 
