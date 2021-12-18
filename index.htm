@@ -1,0 +1,84 @@
+<html>
+  NFT Benefit Calculator
+  <input />
+
+  <table id="myTable" />
+</html>
+
+<script>
+  var table = document.getElementById("myTable");
+
+  // Car
+  // let tokenStart = 0;
+  // let nftCount = 8;
+  // let nftEarnPerDay = 15;
+  // let nftCreatePrice = 620;
+  // let nftOil = 2;
+  // let dayCount = 90;
+
+  // Pan
+  // let tokenStart = 0;
+  // let nftCount = 2;
+  // let nftEarnPerDay = 20;
+  // let nftCreatePrice = 500;
+  // let nftOil = 1;
+  // let dayCount = 90;
+  //
+  let tokenStart = 0;
+  let nftCount = 10;
+  let nftEarnPerDay = 10;
+  let nftCreatePrice = 250;
+  let nftOil = 1;
+  let dayCount = 90;
+
+  const rowHead = table.insertRow(0);
+  rowHead.insertCell(0).innerHTML = "Day";
+  rowHead.insertCell(1).innerHTML = "ALL Earn";
+  rowHead.insertCell(2).innerHTML = "Day Earn";
+  rowHead.insertCell(3).innerHTML = "Oil";
+
+  for (let nft = 0; nft < nftCount; nft++) {
+    rowHead.insertCell(4 + nft).innerHTML = "NFT #" + (nft + 1);
+  }
+
+  let allEarn = tokenStart;
+  let rowCount = 1;
+  for (let day = 0; day < dayCount; day++) {
+    const row = table.insertRow(rowCount);
+    row.insertCell(0).innerHTML = day + 1;
+
+    const ceilAllEarn = row.insertCell(1);
+    const ceilDayEarn = row.insertCell(2);
+    const ceilOil = row.insertCell(3);
+
+    const oil = -1 * nftCount * nftOil;
+    ceilOil.innerHTML = oil;
+    let dayEarn = 0;
+    for (let nft = 0; nft < nftCount; nft++) {
+      row.insertCell(4 + nft).innerHTML = nftEarnPerDay;
+      dayEarn += nftEarnPerDay;
+    }
+    dayEarn += oil;
+    ceilDayEarn.innerHTML = dayEarn;
+    allEarn += dayEarn;
+    ceilAllEarn.innerHTML = allEarn;
+
+    const nftNewCount = Math.floor(allEarn / nftCreatePrice);
+    if (nftNewCount > 0) {
+      allEarn -= nftNewCount * nftCreatePrice;
+      for (let nftNew = 0; nftNew < nftNewCount; nftNew++) {
+        const nftIndex = nftCount + nftNew;
+        rowHead.insertCell(4 + nftIndex).innerHTML = "NFT #" + nftIndex;
+      }
+      nftCount += nftNewCount;
+    }
+
+    rowCount++;
+  }
+</script>
+
+<style>
+  td {
+    border: 1px solid black;
+  }
+</style>
