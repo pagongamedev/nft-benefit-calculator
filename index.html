@@ -191,7 +191,8 @@
           allEarn -= nftNewCount * nftBuyPrice;
           for (let nftNew = 0; nftNew < nftNewCount; nftNew++) {
             const nftIndex = nftCount + nftNew;
-            rowHead.insertCell(4 + nftIndex).innerHTML = "NFT #" + nftIndex;
+            rowHead.insertCell(4 + nftIndex).innerHTML =
+              "NFT #" + (nftIndex + 1);
             let textShow = nftEarnPerDay;
             if (claimDayDelay) {
               textShow = "<p style='color:red'>" + 0 + "</p>";
