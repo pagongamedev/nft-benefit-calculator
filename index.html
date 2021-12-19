@@ -147,7 +147,7 @@
       ceilOil.innerHTML = oil;
       let dayEarn = 0;
       let countNFTDelayClaim = 0;
-      for (let delay = claimDayDelay - 1; delay >= 0 + 1; delay--) {
+      for (let delay = claimDayDelay - 1; delay >= 0; delay--) {
         countNFTDelayClaim += delayList[delay];
       }
 
@@ -177,13 +177,13 @@
           for (let nftNew = 0; nftNew < nftNewCount; nftNew++) {
             const nftIndex = nftCount + nftNew;
             rowHead.insertCell(4 + nftIndex).innerHTML = "NFT #" + nftIndex;
-            let textShow = nftEarnPerDay;
-            if (claimDayDelay) {
-              textShow = "<p style='color:red'>" + nftEarnPerDay + "</p>";
-            } else {
-              allEarn += nftEarnPerDay;
-            }
-            row.insertCell(4 + nftIndex).innerHTML = textShow;
+            // let textShow = nftEarnPerDay;
+            // if (claimDayDelay) {
+            //   textShow = "<p style='color:red'>" + nftEarnPerDay + "</p>";
+            // } else {
+            //   allEarn += nftEarnPerDay;
+            // }
+            // row.insertCell(4 + nftIndex).innerHTML = textShow;
           }
 
           delayList[claimDayDelay - 1] += nftNewCount;
