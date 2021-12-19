@@ -11,35 +11,48 @@
     <tr>
       <td>Token Start</td>
       <td><input id="elTokenStart" type="number" value="0" /></td>
+      <td>จำนวนเงินที่มีอยู่ในกระเป๋าปัจจุบัน</td>
     </tr>
     <tr>
       <td>NFT Count</td>
       <td><input id="elNftCount" type="number" value="10" /></td>
+      <td>จำนวน NFT ที่สามารถวิ่งได้ปัจจุบัน</td>
     </tr>
     <tr>
       <td>NFT Earn Per Day</td>
       <td><input id="elNftEarnPerDay" type="number" value="0" /></td>
+      <td>จำนวนเหรียญเฉลี่ยที่วิ่งได้ต่อวัน ต่อ NFT</td>
     </tr>
     <tr>
       <td>NFT Buy Price</td>
       <td><input id="elNFTBuyPrice" type="number" value="0" /></td>
+      <td>จำนวนราคา NFT หากซื้อเพิ่ม</td>
     </tr>
     <tr>
       <td>NFT Oil Price</td>
       <td><input id="elNFTOilPrice" type="number" value="0" /></td>
+      <td>ราคาน้ำมันที่ต้องเติมต่อ 1 NFT</td>
     </tr>
     <tr>
       <td>Claim Day Delay</td>
       <td><input id="elClaimDayDelay" type="number" value="5" /></td>
+      <td>จำนวนวันที่จะต้องรอถึงจะเคลมเหรียญได้</td>
     </tr>
     <tr>
       <td>Day View</td>
       <td><input id="elDayView" type="number" value="90" /></td>
+      <td>จำนวนวันที่ต้องการคำนวนดู</td>
     </tr>
   </table>
   <br />
-  <button onclick="calculator()">Calculator</button>
   <br />
+
+  <div style="color: red">สีแดง</div>
+  คือ NFT ยังเคลมไม่ได้
+  <br />
+  <br />
+  <button onclick="calculator()">Calculator</button>
+
   <br />
 
   <div id="divTable" />
